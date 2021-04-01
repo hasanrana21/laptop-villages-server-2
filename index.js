@@ -33,6 +33,20 @@ client.connect(err => {
     })
   })
 
+  app.get('/cards/:id', (req, res) => {
+    productsCollection.find({_id: req.params.id})
+    .toArray((err, items) => {
+      res.send(items)
+    })
+  })
+
+  app.delete('/card', (req, res) => {
+    productsCollection.findOneAndDelete()
+    .then((err, item) => {
+      res.send(item)
+    })
+  })
+
 
 
 });
