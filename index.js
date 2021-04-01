@@ -16,6 +16,7 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const productsCollection = client.db("laptopVillage-ass10").collection("electronicProducts");
+  const ordersCollection = client.db("laptopVillage-ass10").collection("orders");
 
   app.post('/addCardDetails', (req, res) => {
     const newCard = (req.body);
@@ -40,7 +41,15 @@ client.connect(err => {
     })
   })
 
-  app.delete('/card', (req, res) => {
+  app.post('/addOrders', (req, res) => {
+    ordersCollection.insertOne(req.body)
+    .then(result => {
+      console.log(result)
+      res.send(result)
+    })
+  })
+
+  app.delete('/card/:id', (req, res) => {
     productsCollection.findOneAndDelete()
     .then((err, item) => {
       res.send(item)
