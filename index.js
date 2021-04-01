@@ -45,7 +45,14 @@ client.connect(err => {
     ordersCollection.insertOne(req.body)
     .then(result => {
       console.log(result)
-      res.send(result)
+      res.send(result.insertedCount > 0)
+    })
+  })
+
+  app.get('/ordered', (req, res) => {
+    ordersCollection.find()
+    .toArray((err, orders) => {
+      res.send(orders);
     })
   })
 
