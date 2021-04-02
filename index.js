@@ -1,5 +1,6 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 const cors = require('cors');
 require('dotenv').config()
 
@@ -56,8 +57,9 @@ client.connect(err => {
     })
   })
 
-  // app.delete('/card/:id', (req, res) => {
-  //   productsCollection.findOneAndDelete()
+  // app.delete('/delete/:id', (req, res) => {
+  //   console.log(req.params.id)
+  //   productsCollection.findOneAndDelete({_id: ObjectId(req.params.id)})
   //   .then((err, item) => {
   //     res.send(item)
   //   })
